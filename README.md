@@ -9,7 +9,7 @@ the modern app server for PHP.
 git clone https://github.com/alexandreelise/frankenphp-joomla
 cd frankenphp-joomla
 docker compose pull --include-deps
-docker compose up
+MYSQL_ROOT_PASSWORD="$(docker run --rm dunglas/frankenphp php -r 'echo bin2hex(random_bytes(12));')" docker compose up --build
 ```
 
 Your Joomla website is available on `https://localhost:{random_ephemeral_port}`.

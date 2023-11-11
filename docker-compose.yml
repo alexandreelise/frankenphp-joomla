@@ -1,32 +1,32 @@
-version: '3.1'
-
 services:
+  webapp:
+    env_file: # remove hardcoded config and put it in .env file
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"  # required to manually create random mysql password
+    build:
+      target: runner # multi-stage build feature
+      tags:
+        - "${DEV_BUILD_REMOTE_TAG}"
 
-  joomla:
-    build: .
     restart: always
     ports:
-      - ::80
-      - ::443
-    environment:
-      JOOMLA_DB_HOST: db
-      JOOMLA_DB_USER: exampleuser
-      JOOMLA_DB_PASSWORD: examplepass
-      JOOMLA_DB_NAME: exampledb
+      - ::80  # ephemeral port feature
+      - ::443 # ephemeral port feature
     volumes:
-      - joomla:/app/public
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - joomlavolume:/app/public
 
   db:
-    image: mysql
-    restart: always
+    env_file: # remove hardcoded config and put it in .env file
+      - .env
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"  # required to manually create random mysql password
+    image: "${BASE_DB_IMAGE}"
+    restart: always
     volumes:
-      - db:/var/lib/mysql
+      - dbvolume:/var/lib/mysql
 
 volumes:
-  joomla:
-  db:
+  joomlavolume:
+  dbvolume:
