@@ -1,4 +1,8 @@
+!/.env
 !/.gitignore
+!/Caddyfile
 !/docker-compose.yml
 !/Dockerfile
+!/install-japp.sh
+!/zzz-custom.ini
 !/README.md

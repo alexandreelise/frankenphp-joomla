@@ -7,19 +7,19 @@ RUN install-php-extensions \
     exif \
     gd \
     intl \
-    mysqli \
     zip \
     redis \
     gmp \
     imagick \
     ldap \
-    pdo_mysql \
+    pgsql \
+    pdo_pgsql \
     apcu \
     bz2 \
     opcache
 
 LABEL org.opencontainers.image.title="Joomla on FrankenPHP"
-LABEL org.opencontainers.image.description="Unofficial hardened example of Joomla on FrankenPHP with MySQL"
+LABEL org.opencontainers.image.description="Unofficial hardened example of Joomla on FrankenPHP with Postgres"
 LABEL org.opencontainers.image.url=https://github.com/alexandreelise/frankenphp-joomla
 LABEL org.opencontainers.image.source=https://github.com/alexandreelise/frankenphp-joomla
 LABEL org.opencontainers.image.licenses=MIT
@@ -61,9 +61,9 @@ COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-gmp.ini          /u
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-imagick.ini      /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-intl.ini         /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-ldap.ini         /usr/local/etc/php/conf.d/
-COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini       /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini      /usr/local/etc/php/conf.d/
-COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini    /usr/local/etc/php/conf.d/
+COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-pgsql.ini        /usr/local/etc/php/conf.d/
+COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-pdo_pgsql.ini    /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-redis.ini        /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini       /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-zip.ini          /usr/local/etc/php/conf.d/

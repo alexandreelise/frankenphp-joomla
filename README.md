@@ -3,13 +3,17 @@
 Run the popular [Joomla CMS](https://joomla.org) on top of [FrankenPHP](https://frankenphp.dev),
 the modern app server for PHP.
 
+## TL;DR (Summary)
+
+> This branch explains how to auto-install Joomla on FrankenPHP with Postgres as Database.
+
 ## Getting Started
 
 ```
 git clone https://github.com/alexandreelise/frankenphp-joomla
 cd frankenphp-joomla
 docker compose pull --include-deps
-MYSQL_ROOT_PASSWORD="$(docker run --rm dunglas/frankenphp php -r 'echo bin2hex(random_bytes(12));')" docker compose up --build
+POSTGRES_PASSWORD="$(docker run --rm dunglas/frankenphp php -r 'echo bin2hex(random_bytes(12));')" docker compose up --build
 ```
 
 Your Joomla website is available on `https://localhost:{random_ephemeral_port}`.
@@ -19,4 +23,4 @@ services. `e.g. 51042`
 
 Check `docker compose ps` to find the ephemeral port used. It prevents port clashing (open ports conflicts).
 
-Check `docker-compose.yml` to find DB credentials.
+Check `docker compose logs webapp` to find your credentials.
