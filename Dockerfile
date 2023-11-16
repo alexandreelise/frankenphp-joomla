@@ -79,6 +79,7 @@ COPY --from=builder /usr/local/bin/makedb.php          /usr/local/bin/
 COPY --from=builder /usr/src/joomla                    /usr/src/joomla
 COPY --from=builder /install-japp.sh                   /install-japp.sh
 COPY --from=common /usr/local/bin/frankenphp           /usr/local/bin/frankenphp
+COPY ./Caddyfile                                       /etc/caddy/Caddyfile
 
 EXPOSE 80
 EXPOSE 443

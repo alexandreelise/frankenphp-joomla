@@ -14,7 +14,6 @@ services:
       - ::80  # ephemeral port feature
       - ::443 # ephemeral port feature
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
       - joomlavolume:/app/public
 
   db:
