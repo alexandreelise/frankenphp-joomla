@@ -13,6 +13,7 @@ services:
       JOOMLA_DB_USER: exampleuser
       JOOMLA_DB_PASSWORD: examplepass
       JOOMLA_DB_NAME: exampledb
+      JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK: 1
     volumes:
       - joomla:/app/public
 
