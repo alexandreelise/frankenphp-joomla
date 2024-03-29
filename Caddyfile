@@ -34,9 +34,9 @@
 	}
 
 	root @jadmin /usr/src/joomla/administrator/
-	root @japi /usr/src/joomla/api/
-	root @jsite /usr/src/joomla/
-	root * /app/public/
+	root @japi   /usr/src/joomla/api/
+	root @jsite  /usr/src/joomla/
+	root *       /app/public
 
 	@jadmin {
 		import allowed_http_methods

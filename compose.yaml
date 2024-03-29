@@ -1,0 +1,59 @@
+volumes:
+  db_volume:
+  app_volume:
+  public_volume:
+
+
+  # Volumes needed for Caddy certificates and configuration
+  caddy_data:
+  caddy_config:
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        #static IPv4 subnet to allow reproducible exact network without using scripts
+        - subnet: "${IPV4_APP_SUBNET:?IPV4_APP_SUBNET Environment variable is required}"
+
+services:
+  db:
+    env_file: # remove hardcoded config and put it in .env file
+      - .env
+    image: "${BASE_DB_IMAGE:?BASE_DB_IMAGE environment variable is mandatory}"
+    restart: unless-stopped
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      app_net:
+
+  webapp:
+    env_file: # remove hardcoded config and put it in .env file
+      - .env
+    image: "${APP_IMAGE}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_FRANKENPHP_IMAGE: "${BASE_FRANKENPHP_IMAGE:?BASE_FRANKENPHP_IMAGE environment variable is mandatory}"
+        BASE_JOOMLA_IMAGE: "${BASE_JOOMLA_IMAGE:?BASE_JOOMLA_IMAGE environment variable is mandatory}"
+        USER: "${CUSTOM_USER:?CUSTOM_USER environment variable is mandatory}"
+      tags:
+        - "${APP_IMAGE:?APP_IMAGE environment variable is mandatory}"
+
+    restart: unless-stopped
+    ports:
+      - "::80/tcp"  # HTTP using ephemeral port feature
+      - "::443/tcp" # HTTPS using ephemeral port feature
+      - "::443/udp" # HTTP/3 using ephemeral port feature
+    volumes:
+      - app_volume:/usr/src/joomla
+      - public_volume:/app/public
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      app_net:
+        # arbitrary static IPv4 chosen from the subnet above.
+        ipv4_address: "${IPV4_APP_ADDRESS:?IPV4_APP_ADDRESS Environment Variable is required}"
+    depends_on:
+      - db

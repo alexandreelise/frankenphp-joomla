@@ -5,18 +5,24 @@ the modern app server for PHP.
 
 ## Getting Started
 
-```
-git clone https://github.com/alexandreelise/frankenphp-joomla
-cd frankenphp-joomla
-docker compose pull --include-deps
-MYSQL_ROOT_PASSWORD="$(docker run --rm dunglas/frankenphp php -r 'echo bin2hex(random_bytes(12));')" docker compose up --build
+In your terminal (Linux and Unix or WSL2 on Windows) type: 
+
 ```
 
-Your Joomla website is available on `https://localhost:{random_ephemeral_port}`.
+git clone https://github.com/alexandreelise/frankenphp-joomla &&
+cd frankenphp-joomla &&
+docker compose pull &&
+docker compose build --no-cache &&
+docker compose up --remove-orphans --detach &&
+docker compose logs --follow webapp 
+
+```
+
+Your Joomla website is available on `https://10.210.21.42:{random_ephemeral_port}`.
 
 In this case `{random_ephemeral_port}` is the first random port that is available that does not conflict with other
 services. `e.g. 51042`
 
-Check `docker compose ps` to find the ephemeral port used. It prevents port clashing (open ports conflicts).
+Check `docker container ps --filter name=frankenphp-joomla-*` to find the ephemeral port used. It prevents port clashing (open ports conflicts).
 
-Check `docker-compose.yml` to find DB credentials.
+Check `.env` file to find your credentials.

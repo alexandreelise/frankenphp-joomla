@@ -1,0 +1,3 @@
+services:
+  webapp:
+    tty: true # Should be false in production
