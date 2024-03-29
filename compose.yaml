@@ -22,8 +22,10 @@ services:
       - .env
     image: "${BASE_DB_IMAGE:?BASE_DB_IMAGE environment variable is mandatory}"
     restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
     volumes:
-      - db_volume:/var/lib/mysql
+      - dbvolume:/var/lib/postgresql/data
     networks:
       app_net:
 
