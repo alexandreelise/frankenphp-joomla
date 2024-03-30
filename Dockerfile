@@ -39,7 +39,6 @@ RUN sed -i \
     -e 's#set \-e#set \-e \&\& cd /usr/src/joomla#' \
     -e 's#/makedb\.php#/usr/local/bin/makedb\.php#g' \
     -e 's# \=\= php\-fpm# \=\= \"\/usr\/local\/bin\/install\-japp\.sh\"#' \
-    -e 's#\-\-db\-encryption\=0#-\-db\-encryption\=0 -\-public\-folder\=\"\$\{JOOMLA_PUBLIC_FOLDER\:\-\/app\/public\}\"#' \
     /usr/local/bin/entrypoint.sh
 
 FROM common AS runner
