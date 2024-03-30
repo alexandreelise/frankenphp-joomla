@@ -12,7 +12,8 @@ RUN --mount=type=cache,target=/usr/local/etc/php/conf.d/ \
     bz2 \
     gd \
     intl \
-    mysqli \
+    pgsql \
+    pdo_pgsql \
     opcache \
     zip
 
@@ -52,7 +53,8 @@ COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-ph
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-bz2.ini          /usr/local/etc/php/conf.d/
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-gd.ini           /usr/local/etc/php/conf.d/
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-intl.ini         /usr/local/etc/php/conf.d/
-COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini       /usr/local/etc/php/conf.d/
+COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-pgsql.ini       /usr/local/etc/php/conf.d/
+COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-pdo_pgsql.ini       /usr/local/etc/php/conf.d/
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini      /usr/local/etc/php/conf.d/
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/docker-php-ext-zip.ini          /usr/local/etc/php/conf.d/
 COPY --from=builder  --chown=${USER}:${USER} /usr/local/etc/php/conf.d/error-logging.ini               /usr/local/etc/php/conf.d/
